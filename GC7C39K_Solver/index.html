@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>
+	SOLVER: GC7C39K 🎣Angel🎏-🌴Paradiese🏖️ (Letterbox Hybrid) in Nordrhein-Westfalen, Germany created by Schatznavigator
+</title>
+<style>
+textarea {
+  background: transparent;
+  border-style: solid;
+  border-width: 2px;
+}
+
+span.loesung {
+  display: inline-block;
+  width: 80px;
+}
+td {
+    vertical-align: top;
+}
+</style>
+</head>
+<body background="GC7C39K_lillycors-angel-paradiese_Blaumond_800x800.png">
+  
+  <table id='loesungen'>
+  </table>
+<script>
+	function getLoesungIdNumber(number) {
+	  var elementIdNumber = ("0" + number).slice(-2);
+	  return elementIdNumber;
+	}
+	function getLoesungId(number) {
+	  var elementId = "loesung" + getLoesungIdNumber(number);
+	  return elementId;
+	}
+
+  var anzahlLoesungen = 11;
+
+  function decode() {
+    var loesungArray = [];
+    var loesungWoerterLeer = [];
+    for (i = 1; i <= anzahlLoesungen; i++) {
+      var elementId = getLoesungId(i);
+      //alert(elementId);
+      var loesungWoerterArray = document.getElementById(elementId).value.split(" ");
+      loesungArray.push(loesungWoerterArray);
+		loesungWoerterLeer.push(null);
+    }
+    var loesungArea = document.getElementById("loesung");
+	 loesungArea.value = '';
+    var leer = 0;
+
+    while (leer < loesungArray.length) {
+     for (i = 0; i < loesungArray.length; i++) {
+      var loesungWoerterArray = loesungArray[i];
+      var loesungWort = loesungWoerterArray.shift();
+      //alert(leer+" "+i+": "+loesungWort);
+      if (loesungWort !== undefined && loesungWort !== '' && loesungWort !== ' ') {
+        loesungArea.value += loesungWort + " ";
+      } else {
+		  if (loesungWoerterLeer[i] == null) {
+		    loesungWoerterLeer[i] = 'leer';
+          leer++;
+		  }
+      }
+     }
+    }
+  }
+
+  var table = document.getElementById('loesungen');
+  var innerHTML = '<tr><td/><td><h3>SOLVER: GC7C39K 🎣Angel🎏-🌴Paradiese🏖️ (Letterbox Hybrid) von Schatznavigator<h3></td>';
+  innerHTML += '<tr><td/><td>Auf die Reihenfolge kommt es an!!!</td>';
+  for (i = 1; i <= anzahlLoesungen; i++) {
+    innerHTML += '<tr><td ><span class="loesung">Lösung '+getLoesungIdNumber(i) +':</span></td><td><textarea id="'+getLoesungId(i)+'" rows="2" cols="100" wrap="hard"></textarea></td></tr>';
+  }
+  innerHTML += '<tr><td></td><td><input type="submit" onClick="decode();" value="Nachricht entschlüsseln"></td><tr>'
+  innerHTML += '<tr><td><span class="loesung">Lösung</span></td><td><textarea readonly id="loesung" rows="20" cols="100" wrap="hard"></textarea></td><tr>'
+
+  table.innerHTML = innerHTML;
+</script>
+</body>
