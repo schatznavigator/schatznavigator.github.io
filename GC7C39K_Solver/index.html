@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
 <meta charset="utf-8">
 <title>
@@ -67,13 +67,39 @@ td {
     }
   }
 
+  function clearInputs() {
+    for (i = 1; i <= anzahlLoesungen; i++) {
+      var elementId = getLoesungId(i);
+      document.getElementById(elementId).value = "";
+    }
+	document.getElementById('loesung').value = "";
+  }
+
+  function inputSwap(number1, number2) {
+    var elementId1 = getLoesungId(number1);
+    var element1 = document.getElementById(elementId1);
+    var elementId2 = getLoesungId(number2);
+    var element2 = document.getElementById(elementId2);
+	var value = element2.value;
+	element2.value = element1.value;
+	element1.value = value;
+	decode();
+  }
+
   var table = document.getElementById('loesungen');
   var innerHTML = '<tr><td/><td><h3>SOLVER: GC7C39K 🎣Angel🎏-🌴Paradiese🏖️ (Letterbox Hybrid) von Schatznavigator<h3></td>';
   innerHTML += '<tr><td/><td>Auf die Reihenfolge kommt es an!!!</td>';
   for (i = 1; i <= anzahlLoesungen; i++) {
-    innerHTML += '<tr><td ><span class="loesung">Lösung '+getLoesungIdNumber(i) +':</span></td><td><textarea id="'+getLoesungId(i)+'" rows="2" cols="100" wrap="hard"></textarea></td></tr>';
+    innerHTML += '<tr><td ><span class="loesung">Lösung '+getLoesungIdNumber(i) +':</span></td><td><textarea id="'+getLoesungId(i)+'" rows="2" cols="100" wrap="hard"></textarea>';
+    if (i > 1) {
+      innerHTML += '<input type="submit" onClick="inputSwap('+(i-1)+','+i+');" value="&uarr;" />';
+    }
+    if (i < anzahlLoesungen) {
+      innerHTML += '<input type="submit" onClick="inputSwap('+i+','+(i+1)+');" value="&darr;" />';
+    }
+    innerHTML += '</td></tr>';
   }
-  innerHTML += '<tr><td></td><td><input type="submit" onClick="decode();" value="Nachricht entschlüsseln"></td><tr>'
+  innerHTML += '<tr><td></td><td><input type="submit" onClick="decode();" value="Nachricht entschlüsseln"/><input type="submit" onClick="clearInputs();" value="Nachrichten löschen"/></td><tr>'
   innerHTML += '<tr><td><span class="loesung">Lösung</span></td><td><textarea readonly id="loesung" rows="20" cols="100" wrap="hard"></textarea></td><tr>'
 
   table.innerHTML = innerHTML;
